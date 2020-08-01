@@ -1,0 +1,8 @@
+include/
+Lib/
+Scripts/
+pyvenv.cfg
+cog.py
+.env
+cogs/
+__pycache__/
