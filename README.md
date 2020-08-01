@@ -17,6 +17,8 @@ discordにてlol customする際に使用していただければと思います
 上記にlaneをつけて分けます。
 ## DEMO
 ```
+!cus
+
 
 ```
 
