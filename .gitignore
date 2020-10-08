@@ -1,6 +1,5 @@
 include/
-Lib/
-Scripts/
+env/
 pyvenv.cfg
 cog.py
 .env

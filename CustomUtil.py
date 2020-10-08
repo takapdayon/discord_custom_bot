@@ -15,9 +15,25 @@ def getChannelId(message):
     except AttributeError as e:
         raise
 
+# cog
+def getChannelId(ctx):
+    try:
+        if ctx.author.voice is not None:
+            return ctx.author.voice.channel.id
+    except UnboundLocalError as e:
+        raise
+    except AttributeError as e:
+        raise
+
 def getChannelMembers(client, channel_id):
     channel = client.get_channel(channel_id)
     channel_members = [i.name for i in channel.members]
+    return channel_members
+
+#cog
+def getChannelMembers(guild, channel_id, exmember):
+    channel = guild.get_channel(channel_id)
+    channel_members = [i.nick for i in channel.members if i not in list(exmember)]
     return channel_members
 
 def groupSplit(channel_members):
@@ -27,13 +43,31 @@ def groupSplit(channel_members):
     groups.append(channel_members[1::2])
     return groups
 
+#cog
+def groupSplit(channel_members):
+    random.shuffle(channel_members)
+    groups = {}
+    remainder = []
+
+    if len(channel_members) > 10:
+        groups["group1"] = channel_members[:5]
+        groups["group2"] = channel_members[5:10]
+        remainder = [10:]
+
+    else:
+        groups["group1"] = channel_members[0::2]
+        groups["group2"] = channel_members[1::2]
+        remainder = []
+
+    return groups, remainder
+
 def createMessage(groups, lane_flag):
 
     message_stack = ""
     lanes = ["Top" , "Jg" , "Mid" , "Adc" , "Sup"]
 
     for gindex, group in enumerate(groups):
-        message_stack += f'-チーム{gindex+1}{"-"*30}\n'
+        message_stack += f'-Team{gindex+1}{"-"*30}\n'
         for index, user in enumerate(group):
             if lane_flag:
                 try:
