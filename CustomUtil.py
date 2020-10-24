@@ -2,9 +2,9 @@ import discord
 import random
 import numpy as np
 from riotwatcher import RiotWatcher
-import settings
+import Settings
 
-watcher = RiotWatcher(settings.RiotAPI)
+watcher = RiotWatcher(Settings.RiotAPI)
 
 def getChannelId(message):
     try:
@@ -15,9 +15,14 @@ def getChannelId(message):
     except AttributeError as e:
         raise
 
-def getChannelMembers(client, channel_id):
+def getChannelMembers(client, channel_id, exmembers=[]):
     channel = client.get_channel(channel_id)
-    channel_members = [i.name for i in channel.members]
+    channel_members = []
+
+    for member in channel.members:
+        if member.nick not in exmembers and member.name not in exmembers:
+            channel_members.append(member.nick if member.nick is not None else member.name)
+    # channel_members = [i.nick if i.nick is not None else i.name for i in channel.members if i not in exmembers]
     return channel_members
 
 def groupSplit(channel_members):

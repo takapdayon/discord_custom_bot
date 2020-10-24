@@ -6,3 +6,5 @@ cog.py
 .env
 cogs/
 __pycache__/
+/env
+/discbot

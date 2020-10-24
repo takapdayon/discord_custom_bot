@@ -3,11 +3,11 @@ from CustomUtil import *
 import discord
 import random
 import numpy as np
-import settings
+import Settings
 
-TOKEN = settings.TOKEN
+TOKEN = Settings.TOKEN
 client = discord.Client()
-ctype = ["!cus" , "!!cus" , "!!!cus"]
+ctype = ["!cus" , "!!cus" , "!!!cus", "!cuslist"]
 
 @client.event
 async def on_ready():
@@ -23,7 +23,10 @@ async def on_message(message):
     if message.author.bot:
         return
 
-    if message.content not in ctype:
+    messages = message.content.split()
+    cus_message = messages.pop(0)
+
+    if cus_message not in ctype:
         return
 
     try:
@@ -33,12 +36,21 @@ async def on_message(message):
     except AttributeError as e:
         await message.channel.send("AttributeError:" + str(e))
 
-    groups = groupSplit(getChannelMembers(client, channel_id))
+    if message.content == "!cuslist":
+        members = getChannelMembers(client=client, channel_id=channel_id)
+        ret_message = ""
+        for member in members:
+            ret_message += f"{member}\n"
+
+        await message.channel.send(ret_message)
+        return
+
+    groups = groupSplit(getChannelMembers(client=client, channel_id=channel_id, exmembers=messages))
 
     lane_flag = False
-    if message.content == '!!cus':
+    if cus_message == '!!cus':
         lane_flag = True
-    elif message.content == '!!!cus':
+    elif cus_message == '!!!cus':
         lane_flag = True
         groups = addChamp(groups)
 
