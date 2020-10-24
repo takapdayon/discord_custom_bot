@@ -70,3 +70,36 @@ Mid: Shen Player6
 Adc: Blitzcrank Player8
 Sup: Talon Player10
 ```
+
+## !cuslist
+## コマンド name1 name2 ...
+!cuslistでボイスチャンネル内のメンバー一覧を返します
+また、上記3つのコマンドの後スペース区切りで名前を入れてもらうとそのメンバーを除外して
+動作します
+```
+!cuslist
+
+Player1
+Player7
+Player5
+Player3
+Player9
+Player2
+Player4
+Player6
+Player8
+Player10
+
+!cus Player1 Player10
+
+-チーム1------------------------------
+Player7
+Player5
+Player3
+Player9
+-チーム2------------------------------
+Player2
+Player4
+Player6
+Player8
+```
