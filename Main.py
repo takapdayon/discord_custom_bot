@@ -26,10 +26,10 @@ async def on_message(message):
         return
 
     messages = message.content.split()
-    print(messages)
-    print(type(messages))
-    if messages:
-        cus_message = messages.pop(0)
+    if not messages:
+        return
+
+    cus_message = messages.pop(0)
 
     if cus_message not in ctype:
         return
