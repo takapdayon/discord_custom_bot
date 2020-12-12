@@ -6,7 +6,9 @@ import numpy as np
 import Settings
 
 TOKEN = Settings.TOKEN
-client = discord.Client()
+intents = discord.Intents.all()
+intents.members = True
+client = discord.Client(intents=intents)
 ctype = ["!cus" , "!!cus" , "!!!cus", "!cuslist"]
 
 @client.event
@@ -24,7 +26,10 @@ async def on_message(message):
         return
 
     messages = message.content.split()
-    cus_message = messages.pop(0)
+    print(messages)
+    print(type(messages))
+    if messages:
+        cus_message = messages.pop(0)
 
     if cus_message not in ctype:
         return

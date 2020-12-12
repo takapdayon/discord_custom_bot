@@ -1,10 +1,10 @@
 import discord
 import random
 import numpy as np
-from riotwatcher import RiotWatcher
+from riotwatcher import LolWatcher
 import Settings
 
-watcher = RiotWatcher(Settings.RiotAPI)
+watcher = LolWatcher(Settings.RIOT_API)
 
 def getChannelId(message):
     try:
