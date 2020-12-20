@@ -21,7 +21,7 @@ def getChannelMembers(client, channel_id, exmembers=[]):
 
     for member in channel.members:
         if member.nick not in exmembers and member.name not in exmembers:
-            channel_members.append(member.nick if member.nick is not None else member.name)
+            channel_members.append(member.nick if member.nick.lower() is not None else member.name)
     # channel_members = [i.nick if i.nick is not None else i.name for i in channel.members if i not in exmembers]
     return channel_members
 
