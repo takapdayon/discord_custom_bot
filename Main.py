@@ -50,7 +50,9 @@ async def on_message(message):
         await message.channel.send(ret_message)
         return
 
-    groups = groupSplit(getChannelMembers(client=client, channel_id=channel_id, exmembers=messages.lower()))
+    messages = list(map(str.lower, messages))
+
+    groups = groupSplit(getChannelMembers(client=client, channel_id=channel_id, exmembers=messages))
 
     lane_flag = False
     if cus_message == '!!cus':
